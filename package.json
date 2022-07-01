@@ -7,7 +7,11 @@
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
+    "copy:manifest": "node -e \"require('fs').copyFile('./manifest.yml', './dist/manifest.yml', function(err) { if (err) console.log(err); console.log('manifest.yml copied!') })\"",
+    "copy:package": "node -e \"require('fs').copyFile('./package.json', './dist/package.json', function(err) { if (err) console.log(err); console.log('package.json copied!') })\"",
+    "copy:initial-schema": "node -e \"require('fs').copyFile('src/common/infrastructure/migrations/initial-schema.sql', './dist/common/infrastructure/migrations/initial-schema.sql', function(err) { if (err) console.log(err); console.log('initial-schema.sql copied!') })\"",
     "build": "nest build",
+    "postbuild": "run-p copy:manifest copy:package copy:initial-schema",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -19,8 +23,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "typeorm-ts-node-commonjs",
-    "copy:initial-schema": "node -e \"require('fs').copyFile('src/common/infrastructure/migrations/initial-schema.sql', './dist/common/infrastructure/persistence/typeorm/migrations/initial-schema.sql', function(err) { if (err) console.log(err); console.log('initial-schema.sql copied!') })\""
+    "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
     "@automapper/classes": "^8.4.1",
