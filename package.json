@@ -19,7 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "copy:initial-schema": "node -e \"require('fs').copyFile('src/common/infrastructure/migrations/initial-schema.sql', './dist/common/infrastructure/persistence/typeorm/migrations/initial-schema.sql', function(err) { if (err) console.log(err); console.log('initial-schema.sql copied!') })\""
   },
   "dependencies": {
     "@automapper/classes": "^8.4.1",
