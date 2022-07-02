@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ClientsModule } from './clients/clients.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReservationsModule } from './reservation/reservations.module';
+import { AddsModule } from './adds/adds.module';
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: "mysql",
@@ -26,7 +27,7 @@ import { ReservationsModule } from './reservation/reservations.module';
     migrationsTableName: "migrations"
   }),
   ClientsModule,
-  ReservationsModule],
+  ReservationsModule,AddsModule],
   controllers: [AppController],
   providers: [AppService],
 })
