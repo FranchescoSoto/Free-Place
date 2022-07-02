@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn, TableInheritance, Unique } from 'typeorm';
 import { AddType } from '../../domain/enums/add-type.enum';
 
-@Entity('clients')
+@Entity('adds')
 @TableInheritance({ column: 'type', })
 export class AbstractAddTypeORM {
   @PrimaryGeneratedColumn('increment', { type: 'bigint', name: 'id', unsigned: true })

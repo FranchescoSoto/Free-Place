@@ -14,13 +14,13 @@ export class GetAddsHandler implements IQueryHandler<GetAddsQuery> {
       id,
       product_name as productName,
       company_name as companyName,
-      dni
+      description as desc
     FROM 
       adds
     WHERE
       type = 'C'
     ORDER BY
-    product_name, company_name;`;
+    product_name, company_name, desc;`;
     const ormAdds = await manager.query(sql);
     if (ormAdds.length <= 0) {
       return [];
@@ -28,9 +28,9 @@ export class GetAddsHandler implements IQueryHandler<GetAddsQuery> {
     const adds: GetAddDto[] = ormAdds.map(function (ormAdd) {
       let addDto = new GetAddDto();
       addDto.id = Number(ormAdd.id);
-      addDto.productname = ormAdd.firstName;
-      addDto.companyname = ormAdd.lastName;
-      addDto.description = ormAdd.dni;
+      addDto.productname = ormAdd.productname;
+      addDto.companyname = ormAdd.companyname;
+      addDto.description = ormAdd.description;
       return addDto;
     });
     return adds;

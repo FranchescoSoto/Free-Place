@@ -23,12 +23,8 @@ export class AddApplicationService {
     if (notification.hasErrors()) {
       return Result.error(notification);
     }
-    const createdAt = DateTime.utcNow().format();
-    const createdBy = AppSettings.SUPER_ADMIN;
-    const updatedAt = null;
-    const updatedBy = null;
     const registerAdd: RegisterAdd = new RegisterAdd(
-      registerPersonRequest.id,
+
       registerPersonRequest.productname,
       registerPersonRequest.companyname,
       registerPersonRequest.description
