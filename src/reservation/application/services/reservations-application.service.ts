@@ -11,21 +11,21 @@ import { OpenReservationRequest } from '../dtos/request/open-reservations-reques
 export class ReservationsApplicationService {
   constructor(
     private commandBus: CommandBus,
-    private openAccountValidator: OpenReservationValidator,
+    private openreservationValidator: OpenReservationValidator,
   ) {}
 
-  async open(openAccountRequestDto: OpenReservationRequest): Promise<Result<AppNotification, OpenReservationResponse>> {
-    const notification: AppNotification = await this.openAccountValidator.validate(openAccountRequestDto);
+  async open(openReservationRequestDto: OpenReservationRequest): Promise<Result<AppNotification, OpenReservationResponse>> {
+    const notification: AppNotification = await this.openreservationValidator.validate(openReservationRequestDto);
     if (notification.hasErrors()) {
       return Result.error(notification);
     }
-    const openAccount: OpenReservation = new OpenReservation(
-      openAccountRequestDto.clientId,
-      openAccountRequestDto.number
+    const openreservation: OpenReservation = new OpenReservation(
+      openReservationRequestDto.clientId,
+      openReservationRequestDto.number
     );
-    const accountId: number = await this.commandBus.execute(openAccount);
+    const reservationId: number = await this.commandBus.execute(openreservation);
     const openReservationResponse: OpenReservationResponse = new OpenReservationResponse(
-      accountId, openAccount.number, null, 1, null, null, openAccount.clientId
+      reservationId, openreservation.number, null, 1, null, null, openreservation.clientId
     );
     return Result.ok(openReservationResponse);
   }

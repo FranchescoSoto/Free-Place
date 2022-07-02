@@ -33,10 +33,7 @@ export class RegisterAddValidator {
     if (notification.hasErrors()) {
       return notification;
     }
-    const customer: AbstractAddTypeORM = await this.addRepository.createQueryBuilder().where("dni = :dni", { dni }).getOne();
-    if (customer != null) {
-      notification.addError('dni is taken', null);
-    }
+    
     return notification;
   }
 }

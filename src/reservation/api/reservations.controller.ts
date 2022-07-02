@@ -16,7 +16,7 @@ export class ReservationsController {
     private readonly queryBus: QueryBus
   ) {}
 
-  @Post()
+  @Post('/reservation')
   async open(
     @Body() openAccountRequest: OpenReservationRequest,
     @Res({ passthrough: true }) response

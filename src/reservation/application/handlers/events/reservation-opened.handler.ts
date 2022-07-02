@@ -7,7 +7,7 @@ export class ReservationOpenedHandler implements IEventHandler<ReservationOpened
   constructor() {}
 
   async handle(event: ReservationOpened) {
-    console.log('handle logic for AccountOpened');
+    console.log('handle logic for ReservationOpened');
     console.log(event);
   }
 }

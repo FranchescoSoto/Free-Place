@@ -4,7 +4,7 @@ import { ReservationIdTypeORM } from '../value-objects/reservation-id.typeorm';
 import { CustomerIdTypeORM } from '../value-objects/customer-id.typeorm';
 import { AuditTrailTypeORM } from '../../../common/infrastructure/value-objects/audit-trail.typeorm';
 
-@Entity('accounts')
+@Entity('reservations')
 export class ReservationTypeORM {
   @PrimaryGeneratedColumn('increment', { type: 'bigint', name: 'id', unsigned: true })
   public id: number;

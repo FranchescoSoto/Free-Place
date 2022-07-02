@@ -6,15 +6,15 @@ import { AuditTrailTypeORM } from '../../../common/infrastructure/value-objects/
 
 export class ReservationMapper {
   public static toTypeORM(reservation: Reservation): ReservationTypeORM {
-    const accountTypeORM: ReservationTypeORM = new ReservationTypeORM();
-    accountTypeORM.id = reservation.getId() != null ? reservation.getId().getValue() : 0;
-    accountTypeORM.number = reservation.getNumber() != null ? ReservationNumberTypeORM.from(reservation.getNumber().getValue()) : null;
-    accountTypeORM.clientId = reservation.getClientId() != null ? CustomerIdTypeORM.from(reservation.getClientId().getValue()) : null;
-    accountTypeORM.auditTrail = reservation.getAuditTrail() != null ? AuditTrailTypeORM.from(
+    const reservationTypeORM: ReservationTypeORM = new ReservationTypeORM();
+    reservationTypeORM.id = reservation.getId() != null ? reservation.getId().getValue() : 0;
+    reservationTypeORM.number = reservation.getNumber() != null ? ReservationNumberTypeORM.from(reservation.getNumber().getValue()) : null;
+    reservationTypeORM.clientId = reservation.getClientId() != null ? CustomerIdTypeORM.from(reservation.getClientId().getValue()) : null;
+    reservationTypeORM.auditTrail = reservation.getAuditTrail() != null ? AuditTrailTypeORM.from(
       reservation.getAuditTrail().getCreatedAt().format(),
       reservation.getAuditTrail().getCreatedBy().getValue(),
       reservation.getAuditTrail().getUpdatedAt().format(),
       reservation.getAuditTrail().getUpdatedBy().getValue()) : null;
-    return accountTypeORM;
+    return reservationTypeORM;
   }
 }

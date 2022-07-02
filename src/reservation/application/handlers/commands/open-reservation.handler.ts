@@ -17,29 +17,29 @@ export class OpenReservationHandler
   implements ICommandHandler<OpenReservation> {
   constructor(
     @InjectRepository(ReservationTypeORM)
-    private accountRepository: Repository<ReservationTypeORM>,
+    private reservationRepository: Repository<ReservationTypeORM>,
     private publisher: EventPublisher,
   ) {
   }
 
   async execute(command: OpenReservation) {
-    let accountId: number = 0;
-    const accountNumberResult: Result<AppNotification, ReservationNumber> = ReservationNumber.create(command.number);
-    if (accountNumberResult.isFailure()) {
-      return accountId;
+    let reservationId: number = 0;
+    const reservationNumberResult: Result<AppNotification, ReservationNumber> = ReservationNumber.create(command.number);
+    if (reservationNumberResult.isFailure()) {
+      return reservationId;
     }
     const clientId: ClientId = ClientId.of(command.clientId);
-    let account: Reservation = ReservationFactory.createFrom(accountNumberResult.value, clientId, null);
-    let accountTypeORM:ReservationTypeORM = ReservationMapper.toTypeORM(account);
-    accountTypeORM = await this.accountRepository.save(accountTypeORM);
-    if (accountTypeORM == null) {
-      return accountId;
+    let reservation: Reservation = ReservationFactory.createFrom(reservationNumberResult.value, clientId, null);
+    let reservationTypeORM:ReservationTypeORM = ReservationMapper.toTypeORM( reservation);
+    reservationTypeORM = await this.reservationRepository.save(reservationTypeORM);
+    if (reservationTypeORM == null) {
+      return reservationId;
     }
-    accountId = Number(accountTypeORM.id);
-    account.changeId(ReservationId.of(accountId));
-    account = this.publisher.mergeObjectContext(account);
-    account.open();
-    account.commit();
-    return accountId;
+    reservationId = Number(reservationTypeORM.id);
+    reservation.changeId(ReservationId.of(reservationId));
+    reservation = this.publisher.mergeObjectContext(reservation);
+    reservation.open();
+    reservation.commit();
+    return reservationId;
   }
 }

@@ -19,24 +19,24 @@ export class GetReservationsHandler implements IQueryHandler<GetReservationsQuer
       a.updated_at,
       a.updated_by
     FROM 
-      accounts a
+      reservations a
     ORDER BY
       a.created_at DESC;`;
-    const ormAccounts = await manager.query(sql);
-    if (ormAccounts.length <= 0) {
+    const ormReservations = await manager.query(sql);
+    if (ormReservations.length <= 0) {
       return [];
     }
-    const accounts: GetReservationsDto[] = ormAccounts.map(function (ormAccount) {
-      let accountDto = new GetReservationsDto();
-      accountDto.id = Number(ormAccount.id);
-      accountDto.number = ormAccount.number;
-      accountDto.clientId = Number(ormAccount.client_id);
-      accountDto.createdAt = ormAccount.created_at;
-      accountDto.createdBy = ormAccount.created_by;
-      accountDto.updatedAt = ormAccount.updated_at;
-      accountDto.updatedBy = ormAccount.updated_by;
-      return accountDto;
+    const reservations: GetReservationsDto[] = ormReservations.map(function (ormReservation) {
+      let reservationDto = new GetReservationsDto();
+      reservationDto.id = Number(ormReservation.id);
+      reservationDto.number = ormReservation.number;
+      reservationDto.clientId = Number(ormReservation.client_id);
+      reservationDto.createdAt = ormReservation.created_at;
+      reservationDto.createdBy = ormReservation.created_by;
+      reservationDto.updatedAt = ormReservation.updated_at;
+      reservationDto.updatedBy = ormReservation.updated_by;
+      return reservationDto;
     });
-    return accounts;
+    return reservations;
   }
 }

@@ -1,8 +1,6 @@
 export class GetReservationsDto {
   public id: number;
   public number: string;
-  public balance: number;
-  public currency: string;
   public clientId: number;
   public createdAt: string;
   public createdBy: number;
